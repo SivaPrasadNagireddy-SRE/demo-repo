@@ -1,0 +1,90 @@
+Configured Ec2 RHEL 9 with 4GB ram and 10 GB HDD and allowed the required ports in security groups  8080 80 22 443.
+
+ssh -i "demo-vm.pem" ec2-user@13.234.59.73
+
+
+===========================================
+//Update all software packages on ec2 server
+sudo yum update
+
+Follow : https://pkg.jenkins.io/
+https://pkg.jenkins.io/windows/
+https://pkg.jenkins.io/redhat-stable/
+https://pkg.jenkins.io/debian-stable/
+
+//Add Jenkins repo
+sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+
+//Import a key file from Jenkins-CI to enable installation from the package
+sudo rpm --import https://pkg.jenkins.io/redhat/jenkins.io.key
+
+
+
+//Switch to Java 
+sudo alternatives --config java
+
+//Update Java
+sudo yum install fontconfig java-11-openjdk
+
+
+//Install Jenkins
+yum clean packages
+
+//Start Jenkins as a service
+sudo service jenkins start
+sudo service jenkins status
+
+//Get Admin Password
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+
+Login http://13.234.59.73:8080/
+
+#Install Suggested Plug-ins in Web-UO
+
+#Create First Admin User
+shiva
+Nagi@1985
+shivaindia222@gmail.com
+
+
+Jenkins URL: http://13.234.59.73:8080/
+
+================================================
+Setup Tools in Jenkins:
+
+Setup Java Home path:
+Gives all the 
+java -XshowSettings:properties -version ( find the java home path and update  )
+
+
+================================================
+
+Install git
+ yum install git
+ 
+ 
+================================================
+ Ref  .https://tecadmin.net/install-apache-maven-on-centos/
+Install maven ( https://downloads.apache.org/maven/maven-3/3.9.4/binaries/ )
+
+cd /opt
+
+wget  wget https://downloads.apache.org/maven/maven-3/3.9.4/binaries/apache-maven-3.9.4-bin.tar.gz
+
+tar -xvzf apache-maven-3.9.4-bin.tar.gz
+
+ln -s apache-maven-3.9.4 maven
+
+vi /etc/profile.d/maven.sh
+
+export M2_HOME=/opt/maven
+
+export PATH=${M2_HOME}/bin:${PATH}
+
+source /etc/profile.d/maven.sh
+
+
+mvn -version
+Apache Maven 3.9.4 
+
+================================================
